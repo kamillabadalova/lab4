@@ -1,0 +1,307 @@
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class stw {
+	 static Scanner scan = new Scanner(System.in);
+     static String str = scan.nextLine();
+     
+	 public static void main(String[] args) {
+	А(str); 
+	Б(str);
+	В(str); 
+	Г(str);
+	Д();
+	Е();
+	Ж(str); 
+	З(); 
+	И(str); 
+	punkt3();
+	punkt4();
+	punkt5();
+	punkt6();
+	punkt7();
+	punkt8();
+	punkt9();
+	punkt10();
+	punkt12(); 
+	punkt13(); 
+	    }
+	
+	    public static void А (String str) {
+	        boolean pat = Pattern.matches("abcd111111102019",str);
+	        if (pat==true) {
+	        	System.out.println("Является");
+	        }else {
+	        	System.out.println("Не является");
+	        }
+	    }
+	    public static void Б(String str) {
+	    	  Pattern pat = Pattern.compile("[0-9]+");
+	    	  Matcher match = pat.matcher(str);
+	          List <Long> numbers = new ArrayList();
+	          int summa=0;
+	          while (match.find()) {
+	              numbers.add(Long.parseLong(match.group(0)));
+	              summa +=Long.parseLong(match.group(0));} 
+	          System.out.println("Сумма чисел=" +summa);
+	          long index=0;
+	          long max= 0;
+	          for (int i=0;i<numbers.size();i++) {
+	        	  if (max < numbers.get(i)) {
+	        		  max=numbers.get(i); }
+	        	      index=i; }
+	          System.out.println("Максимальное число "+max+" и "+"его порядковый номер " +index);
+	          }
+	    public static void В(String str) {
+	    		  Pattern pat=Pattern.compile("\\d+((\\.|,)\\d+)");
+	    		  Matcher match = pat.matcher(str);
+	    		  ArrayList numbers=new ArrayList();
+	              while(match.find()) {
+	    			  numbers.add(match.group()); }
+	       	   System.out.println("Число/числа в десятичном формате "+numbers);
+	       	   }
+	    
+	    public static void Г(String str) {
+	    	Pattern pat = Pattern.compile("[а-я]{10,}");
+	    	Matcher match = pat.matcher(str);
+	    	while(match.find()) {
+	    		System.out.println(match.replaceAll("*")); }
+	    	match=pat.matcher(str);
+	        String firstletter=str;
+	        while (match.find()) {
+	        	firstletter= match.replaceFirst(String.valueOf(firstletter.charAt(match.start())));
+	            match=pat.matcher(firstletter); }
+	        System.out.println(firstletter);
+	        StringBuffer buf=new StringBuffer(str);
+	        match=pat.matcher(buf);
+	        while (match.find()){
+	            char b=buf.charAt(match.start());
+	            int i=match.start();
+	            while (match.end()!=i){
+	                buf.setCharAt(i,b);
+	                i++; }
+	          }
+	          System.out.println(buf);
+	    }
+	    public static void Д () {
+	    	System.out.println("Введите GUID");
+		     String guid = scan.next();
+	    	  Pattern pat = Pattern.compile("[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}");
+	          Matcher match = pat.matcher(guid);
+	          if (match.find()==true) {
+		        	System.out.println("Является GUID");
+		        }else {
+		        	System.out.println("Не является GUID");
+		        }     
+	    }
+	    public static void Е () {
+	    	 System.out.println("Введите идентификатор цвета");
+		     String identifier = scan.next();
+	         Pattern pat = Pattern.compile("^#[a-f0-9]{6}");
+	         Matcher match = pat.matcher(identifier);
+	         if(match.find()==true){
+	             System.out.println("Является шестнадцатиричным идентификатором цвета в HTML"); }
+	         else{
+	             System.out.println("Не является шестнадцатиричным идентификатором цвета в HTML");
+	         }
+	    }
+	   
+	    public static void Ж (String str) {
+	    	String [] word = str.split("\\/");
+	        for (String w: word) {
+	            System.out.println(w); }
+	    }
+	    public static void З () {
+		     System.out.println("Введите слово с суффиксом ик");
+		     String word = scan.next();
+	    	 Pattern pat = Pattern.compile("ик");
+	         Matcher match = pat.matcher(word);
+	         while (match.find()) {
+	              String ik = match.replaceAll(" ");
+	              match = pat.matcher(ik);
+	              System.out.println(ik); }
+	    }
+	    public static void И (String str) {
+			 ArrayList <String> USD = new ArrayList();
+			System.out.println("Извлекли все цены из строки отдельно");
+			 Pattern pat1 = Pattern.compile("\\d+(\\.\\d+)?\\sUSD");
+		     Matcher match = pat1.matcher(str);
+		        while (match.find()) {
+		            USD.add((match.group()).replaceAll("USD", "")); }
+		        System.out.println("USD "+USD);
+		        
+		     ArrayList <String> RUR = new ArrayList();
+		     Pattern pat2 = Pattern.compile("\\d+(\\.\\d+)?\\sRUR");
+		     Matcher match1 = pat2.matcher(str);
+		        while (match1.find()) {
+		            RUR.add((match1.group()).replaceAll("RUR", "")); } 
+		        System.out.println("RUR "+RUR);
+		        
+		        ArrayList <String> EU = new ArrayList();
+		        Pattern pat3 = Pattern.compile("\\d+(\\.\\d+)?\\sEU");
+		        Matcher match2 = pat3.matcher(str);
+		        while (match2.find()) {
+		            EU.add((match2.group()).replaceAll("EU", "")); } 
+		        System.out.println("EU "+EU);
+		        
+		        System.out.println("Конвертировать все цены в (USD or RUR or EU) ");
+		        String rate = scan.nextLine();
+		        
+		        ArrayList <Double> all = new ArrayList<>();
+		        if (rate.equals("RUR")) {
+		            System.out.println("1 USD в RUR ");
+		            double USD1 = scan.nextDouble();
+		            System.out.println("1 EU в RUR ");
+		            double EU1 = scan.nextDouble();
+		            for (int i=0; i<USD.size(); i++) {
+		                all.add(USD1*Double.parseDouble(USD.get(i)));}
+		            for (int i=0; i<EU.size(); i++) {
+		                all.add(EU1*Double.parseDouble(EU.get(i))); }
+		            for (int i=0; i<RUR.size(); i++) {
+		                all.add(Double.parseDouble(RUR.get(i))); }
+		            System.out.println(all); }
+
+		        if (rate.equals("USD")) {
+		            System.out.println("1 RUR в USD ");
+		            double RUR1 = scan.nextDouble();
+		            System.out.println("1 EU в USD ");
+		            double EU1 = scan.nextDouble();
+		            for (int i=0; i<RUR.size(); i++) {
+		                all.add(RUR1*Double.parseDouble(RUR.get(i)));  }
+		            for (int i=0; i<EU.size(); i++) {
+		                all.add(EU1*Double.parseDouble(EU.get(i)));  }
+		            for (int i=0; i<USD.size(); i++) {
+		                all.add(Double.parseDouble(USD.get(i))); }
+		            System.out.println(all); }
+
+		        if (rate.equals("EU")) {
+		            System.out.println("1 USD в EU  ");
+		            double RUR1 = scan.nextDouble();
+		            System.out.println("1 RUR в EU  ");
+		            double USD1 = scan.nextDouble();
+		            for (int i=0; i<RUR.size(); i++) {
+		                all.add(RUR1*Double.parseDouble(RUR.get(i)));}
+		            for (int i=0; i<USD.size(); i++) {
+		                all.add(USD1*Double.parseDouble(USD.get(i)));}
+		            for (int i=0; i<EU.size(); i++) {
+		                all.add(Double.parseDouble(EU.get(i)));  }
+		            System.out.println(all); }
+		    }
+	    public static void punkt3 () {
+		    System.out.println("Введите MAC-адрес");
+		    String mac = scan.next();
+	        Pattern p = Pattern.compile("[a-f]{2}[:][a-f]{2}[:][a-f]{2}[:][0-9]{2}[:][0-9]{2}[:][0-9]{2}");
+	        Matcher m = p.matcher(mac);
+	        if (m.find()==true) {
+	            System.out.println("Является верным МАС-адресом");
+	        } else {
+	            System.out.println("Не является верным МАС-адресом");
+	        }
+	    }
+	    public static void punkt4 () {
+		    System.out.println("Введите URL адрес");
+		    String url = scan.next();
+	        Pattern pat = Pattern.compile("http(https)\\:[a-w]+");
+	        Matcher match = pat.matcher(url);
+	        if (match.find()==true) {
+	        	System.out.println("Является валидным URL адресом");
+	        }else {
+	        	System.out.println("Не является валидным URL адресом");
+	        }
+	    } 
+	    public static void punkt5 () {
+	    	System.out.println("Введите выражение (идентификатор цвета)");
+		    String identifier = scan.next();
+	        Pattern pat = Pattern.compile("^#[a-f0-9]{6}");
+	        Matcher match = pat.matcher(identifier);
+	        if(match.find()==true){
+	            System.out.println("Правильное выражение");
+	        }
+	        else{
+	            System.out.println("Не правильное выражение");
+	        }
+	    }
+	    public static void punkt6 ()  {
+	    	System.out.println("Введите дату в формате дд/мм/гггг");
+		    String date = scan.next();
+	    	Pattern ptg = Pattern.compile("^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$");
+			Matcher matcher = ptg.matcher(date);
+			if (matcher.find()==true) {
+	            System.out.println("Дата в правильном формате");
+	        } else {
+	            System.out.println("Дата в не правильном формате");}
+	        }
+	    public static void punkt7 () {
+	        System.out.println("Введите почту");
+	        String email = scan.next();
+	        Pattern p = Pattern.compile("[a-w]+\\@[a-w]+.[a-w]");
+	        Matcher m = p.matcher(email);
+	        if (m.find()==true) {
+	            System.out.println("Является валидным email адресом");
+	        } else {
+	            System.out.println("Не является валидным email адресом");
+	        }
+	    }
+	    public static void punkt8 () {
+	    	System.out.println("Введите IP-адрес");
+	        String ip = scan.next();
+	        Pattern pat = Pattern.compile("[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}");
+	        Matcher match = pat.matcher(ip);
+	        if (match.find()==true) {
+	            System.out.println("Является IP адресом, записанным в десятичном виде");
+	        } else {
+	            System.out.println("Не является IP адресом, записанным в десятичном виде");
+	        }}
+	    public static void punkt9 () {
+	    	System.out.println("Введите пароль");
+	        String password = scan.next();
+	        Pattern pat = Pattern.compile("[A-W0-9a-w]{1,}(\\_)?");
+	        Matcher match = pat.matcher(password);
+	        if (match.find()==true) {
+	            System.out.println("Пароль надежный"); 
+	        } else {
+	            System.out.println("Пароль не надежный");
+	        }
+	    }
+	    public static void punkt10 () {
+	    	System.out.println("Введите шестизначное число");
+	        String number = scan.next();
+	        Pattern pat = Pattern.compile("[1-9][0-9]{5}");
+	        Matcher match = pat.matcher(number);
+	        if (match.find()==true) {
+	            System.out.println("Является шестичначным числом");
+	        } else {
+	            System.out.println("Не является шестичначным числом");  }
+
+	    }
+	    public static void punkt12 () {
+	    	System.out.println("Введите выражение c + или без него");
+	        String example  = scan.next();
+	        Pattern pat = Pattern.compile("[0-9][+]+");
+	        Matcher match = pat.matcher(example);
+	        while (match.find()) {
+	            System.out.println("Индекс элемента,за которым стоит +: " + match.start()); }
+	        if (match.find()==false) {
+	        	System.out.println("Нет элементов,после которых стоит +");
+	        }
+	    }
+	        public static void punkt13() {
+	          System.out.println("Введите выражение c круглыми скобками");
+	  	      String example  = scan.next();
+	  	      Pattern pat = Pattern.compile("\\(");
+	          Pattern patt = Pattern.compile("\\)");
+	          Matcher match = pat.matcher(example);
+	          int k=0;
+            int m=0;
+	          while (match.find())
+	        	  k++;
+	          match = patt.matcher(example);
+	          while (match.find())
+	        	  m++;
+	          System.out.println(k==m);
+	      }
+	    }
